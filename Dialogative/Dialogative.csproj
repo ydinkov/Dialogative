@@ -4,15 +4,15 @@
         <Title>Dialogative</Title>
         <Description>Yaml interpreter for videogame dialogue trees</Description>
         <Summary>Create and run dialogue trees in dotnet with yaml!</Summary>
-        <VersionPrefix>1.0.4</VersionPrefix>
+        <VersionPrefix>1.0.5</VersionPrefix>
 
         <PackageId>Dialogative</PackageId>
         <PackageIcon>icon.png</PackageIcon>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <PackageProjectUrl>https://github.com/ydinkov/Dialogative</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/ydinkov/Dialogative</RepositoryUrl>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 
-<!--        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
         <Authors>Yasen Dinkov</Authors>
 
         <ImplicitUsings>enable</ImplicitUsings>
@@ -20,6 +20,7 @@
         <WarningsAsErrors>nullable</WarningsAsErrors>
         <LangVersion>preview</LangVersion>
         <TargetFrameworks>net6.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
+         
 
 
     </PropertyGroup>
