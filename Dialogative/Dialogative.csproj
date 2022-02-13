@@ -4,32 +4,33 @@
         <Title>Dialogative</Title>
         <Description>Yaml interpreter for videogame dialogue trees</Description>
         <Summary>Create and run dialogue trees in dotnet with yaml!</Summary>
-        <VersionPrefix>1.0.1</VersionPrefix>
+        <VersionPrefix>1.0.2</VersionPrefix>
 
         <PackageId>Dialogative</PackageId>
         <PackageIcon>icon.svg</PackageIcon>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <PackageProjectUrl>https://github.com/ydinkov/Dialogative</PackageProjectUrl>
-        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>   
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Authors>Yasen Dinkov</Authors>
-        
+
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <WarningsAsErrors>nullable</WarningsAsErrors>
         <LangVersion>preview</LangVersion>
         <TargetFrameworks>net6.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
-        
-        
-        
+
+
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.CodeAnalysis" Version="4.1.0-3.final" />
-      <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0-3.final" />
-      <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.1.0-3.final" />
-      <PackageReference Include="YamlDotNet" Version="11.2.1" />
+        <PackageReference Include="Microsoft.CodeAnalysis" Version="4.1.0-3.final"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0-3.final"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.1.0-3.final"/>
+        <PackageReference Include="YamlDotNet" Version="11.2.1"/>
+        <None Include="..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)"/>
+        <None Include="..\icon.svg" Pack="true" PackagePath="$(PackageIconFile)"/>
     </ItemGroup>
 
 </Project>
