@@ -29,7 +29,7 @@ jobs:
 
 
     - name: Push to Github Packages
-      run: dotnet nuget push ./Dialogative/bin/Release/Dialogative.*.nupkg  --source "github" --api-key ${{ secrets.GH_PACKAGES_TOKEN }}
+      run: dotnet nuget push ./Dialogative/bin/Release/Dialogative.*.nupkg  --source "https://nuget.pkg.github.com/ydinkov/index.json" --api-key ${{ secrets.GH_PACKAGES_TOKEN }}
 
 
     - name: Push to Nuget
