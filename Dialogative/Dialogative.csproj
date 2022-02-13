@@ -4,7 +4,7 @@
         <Title>Dialogative</Title>
         <Description>Yaml interpreter for videogame dialogue trees</Description>
         <Summary>Create and run dialogue trees in dotnet with yaml!</Summary>
-        <VersionPrefix>1.0.2</VersionPrefix>
+        <VersionPrefix>1.0.3</VersionPrefix>
 
         <PackageId>Dialogative</PackageId>
         <PackageIcon>icon.png</PackageIcon>
