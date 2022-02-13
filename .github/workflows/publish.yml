@@ -29,3 +29,6 @@ jobs:
          
     - name: Pack with dotnet
       run: dotnet nuget push ./Dialogative/bin/Release/Dialogative.*.nupkg  -s https://www.nuget.org/ -k ${{ secrets.NUGET_API_KEY }}
+
+    - name: Pack with dotnet
+      run: dotnet nuget push ./Dialogative/bin/Release/Dialogative.*.nupkg  -s "Github" -k ${{ secrets.GH_PACKAGES_TOKEN }}
