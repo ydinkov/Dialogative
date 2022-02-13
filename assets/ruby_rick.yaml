@@ -1,0 +1,111 @@
+name: "Ruby Rick"
+
+moods:
+  default: "pensive.jpg"
+  excited: "excited.jpg"
+  sad: "sad.jpg"
+
+sounds:
+  birds: "birds.wav"
+  greeting: "hello.wav"
+
+variables:
+  - "HasMetRuby"
+  - "FoundTheLuteStarted"
+  - "FoundTheLute"
+  - "AcceptedFindTheLute"
+
+scenes: 
+  introduction:
+    beats:
+      - predicate: "HasMetRuby"
+        success:
+          mood: excited
+          text: ["Hey Buddy!"]
+          next: welcome
+        failure:
+          mood: default
+          text: ["Step closer stranger."]
+
+      - success:
+         mood: sad
+         text: ["Man, Listen to this..."]         
+
+      - success:
+          mood: default
+          text: ["Listen to how prettily the birds chirp"]
+  
+      - success:
+          mood: default
+          text: ["Take a moment to listen with me.."] 
+
+      - success:
+          mood: pensive
+          text: ["... <breathe in> ..."] 
+          sound: birds
+
+      - success:
+          mood: pensive
+          text: ["Sure is nice, to slow down a bit"]     
+          sound: birds          
+
+      - success:
+          mood: pensive
+          text: ["Life goes by so fast these days"] 
+        
+      - success:
+          mood: pensive
+          text: ["If you don't stop once in a while to look listen and smell.."]
+
+      - success:
+          mood: pensive
+          text: ["You just might miss it.."]
+          trigger: "HasMetRuby=true"
+          next: welcome
+
+  welcome:
+    beats:
+      - success:
+          mood: excited
+          text: ["Anything else I do you for?"]
+          options:
+            - text: "Buy Instruments"
+            - text: "Sell Music"
+            - text: "Find the lute"
+              predicate: "!FoundTheLute"
+              next: find_the_lute
+            - text: "Bye!"
+              next: leave  
+
+  find_the_lute:
+    beats:
+      - success:
+          mood: excited
+          text: ["Oh jeez. These birds are really rocking out!"]
+
+      - success:
+          mood: sad
+          text: ["I wish i had my lute with me to help me rock out"]
+
+      - success:
+          mood: sad
+          text: ["Could you help me look? It's somewhere around the house"]
+          options:
+            - text: "Sure!"              
+              next: thanks_for_accepting_FindTheLute
+            - text: "Maybe Later..."
+              next: leave
+              
+              
+  thanks_for_accepting_FindTheLute:
+    beats:
+      - success:
+          trigger: "AcceptedFindTheLute"
+          text: ["Aww thank you so much!"]
+          next: welcome
+          
+  leave:
+    beats:
+      - success:
+          text: ["See ya later!"]
+          next: exit
