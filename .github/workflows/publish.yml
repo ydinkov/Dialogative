@@ -28,4 +28,4 @@ jobs:
       run: dotnet pack Dialogative --configuration Release
          
     - name: Pack with dotnet
-      run: dotnet nuget push Dialogative.*.nupkg  -s https://www.nuget.org/ -k ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push ./Dialogative/Dialogative/Dialogative/bin/Release/Dialogative.*.nupkg  -s https://www.nuget.org/ -k ${{ secrets.NUGET_API_KEY }}
