@@ -1,5 +1,7 @@
 ﻿[![Nuget](https://img.shields.io/nuget/v/Dialogative?label=Nuget&logo=nuget)](https://www.nuget.org/packages/Dialogative/)
 
+![](icon.svg)
+
 # Dialogative
 
 Is a helper class that let's you encode a full dialogue tree in a yaml file and query it at runtime.
