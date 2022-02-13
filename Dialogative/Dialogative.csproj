@@ -7,8 +7,8 @@
         <VersionPrefix>1.0.1</VersionPrefix>
 
         <PackageId>Dialogative</PackageId>
-        <PackageIcon>../icon.svg</PackageIcon>
-        <PackageLicenseFile>../LICENSE.md</PackageLicenseFile>
+        <PackageIcon>icon.svg</PackageIcon>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <PackageProjectUrl>https://github.com/ydinkov/Dialogative</PackageProjectUrl>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>   
 
