@@ -1,6 +1,6 @@
 ﻿[![Nuget](https://img.shields.io/nuget/v/Dialogative?label=Nuget&logo=nuget)](https://www.nuget.org/packages/Dialogative/)
 
-![](icon.svg)
+![](icon.png)
 
 # Dialogative
 

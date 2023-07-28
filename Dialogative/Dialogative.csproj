@@ -4,7 +4,7 @@
         <Title>Dialogative</Title>
         <Description>Yaml interpreter for videogame dialogue trees</Description>
         <Summary>Create and run dialogue trees in dotnet with yaml!</Summary>
-        <VersionPrefix>1.0.5</VersionPrefix>
+        <VersionPrefix>1.0.7</VersionPrefix>
 
         <PackageId>Dialogative</PackageId>
         <PackageIcon>icon.png</PackageIcon>
@@ -19,7 +19,7 @@
         <Nullable>enable</Nullable>
         <WarningsAsErrors>nullable</WarningsAsErrors>
         <LangVersion>preview</LangVersion>
-        <TargetFrameworks>net6.0;netcoreapp3.1;netstandard2.1</TargetFrameworks>
+        <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
          
 
 
@@ -28,9 +28,8 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.0.1" />
-        <PackageReference Include="YamlDotNet" Version="11.2.1" />
+        <PackageReference Include="YamlDotNet" Version="13.1.1" />
         <None Include="..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
-        <None Include="..\icon.png" Pack="true" PackagePath="$(PackageIconFile)" />
     </ItemGroup>
 
 </Project>
