@@ -2,7 +2,7 @@
 
 <img src="icon.png" alt="drawing" width="200"/>
 
-# Dialogative
+
 
 Is a helper class that let's you encode a full dialogue tree in a yaml file and query it at runtime.
 
