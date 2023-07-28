@@ -7,7 +7,7 @@
         <VersionPrefix>1.0.7</VersionPrefix>
 
         <PackageId>Dialogative</PackageId>
-        <PackageIcon>../icon.png</PackageIcon>
+        <PackageIcon>icon.png</PackageIcon>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <PackageProjectUrl>https://github.com/ydinkov/Dialogative</PackageProjectUrl>
         <RepositoryUrl>https://github.com/ydinkov/Dialogative</RepositoryUrl>
