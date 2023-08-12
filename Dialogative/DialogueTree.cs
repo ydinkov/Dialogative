@@ -1,8 +1,4 @@
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dialogative.helpers;
 using Dialogative.Models;
 using YamlDotNet.Serialization;
@@ -46,10 +42,10 @@ namespace Dialogative
             if (_reset)
             {
                 _reset = false;
-                return await GetCurrentLine();
+                return await GetCurrentLineAsync();
             }
 
-            var shouldHaveChosenAnOption = await CurrentBeat!.Predicate.Bool(() => Declarations, Mutations)
+            var shouldHaveChosenAnOption = await CurrentBeat!.Predicate.BoolAsync(() => Declarations, Mutations)
                 ? CurrentBeat.Success.Options?.Any() ?? false
                 : CurrentBeat.Failure.Options?.Any() ?? false;
 
@@ -69,28 +65,28 @@ namespace Dialogative
                 else
                 {
                     CurrentBeat =
-                        await CurrentBeat?.GetNext(() => Declarations, Mutations,
+                        await CurrentBeat?.GetNextAsync(() => Declarations, Mutations,
                             Model.Scenes)!; //otherwise keep getting next line
                 }
             }
 
             //If you have something to say, say it
-            var somethingToSay = await GetCurrentLine();
+            var somethingToSay = await GetCurrentLineAsync();
             if (somethingToSay != null) return somethingToSay;
             //otherwise reset and end the conversation
             Reset();
             return null;
         }
 
-        private async Task<Line?> GetCurrentLine()
+        private async Task<Line?> GetCurrentLineAsync()
         {
             if (CurrentBeat is null)return null;
-            var lineModel = await CurrentBeat?.GetLine(() => Declarations, Mutations)!;
+            var lineModel = await CurrentBeat?.GetLineAsync(() => Declarations, Mutations)!;
             var q = new ConcurrentQueue<Option>();
             var options = lineModel.Options?.Select(async x =>
             {
                 var predicate = x?.Predicate ?? string.Empty;
-                var shouldShowOption = await predicate.Bool(() => Declarations, Mutations); 
+                var shouldShowOption = await predicate.BoolAsync(() => Declarations, Mutations); 
                 if (x != null && (shouldShowOption || string.IsNullOrWhiteSpace(predicate) ) )
                     q.Enqueue(x);
             }) ?? new Task[] { };
@@ -104,6 +100,29 @@ namespace Dialogative
                 Options = q.ToArray()
             };
         }
+        
+        //private Line? GetCurrentLine()
+        //{
+        //    if (CurrentBeat is null)return null;
+        //    var lineModel = CurrentBeat?.GetLine(() => Declarations, Mutations)!;
+        //    var q = new ConcurrentQueue<Option>();
+//
+        //    foreach (var x in lineModel.Options)
+        //    {
+        //        var predicate = x?.Predicate ?? string.Empty;
+        //        var shouldShowOption = predicate.Bool(() => Declarations, Mutations); 
+        //        if (x != null && (shouldShowOption || string.IsNullOrWhiteSpace(predicate) ) )
+        //            q.Enqueue(x);
+        //    }
+        //    _onEventTrigger(lineModel.Trigger);
+        //    return new Line
+        //    {
+        //        Text = lineModel.Text.Choice(_randomBarkChooser),
+        //        Mood = lineModel.Mood,
+        //        Sound = lineModel.Sound,
+        //        Options = q.ToArray()
+        //    };
+        //}
 
         private void Reset()
         {
