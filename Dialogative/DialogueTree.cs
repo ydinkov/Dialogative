@@ -78,6 +78,46 @@ namespace Dialogative
             return null;
         }
 
+        public Line? Talk(Option? option = null)
+        {
+            if (_reset)
+            {
+                _reset = false;
+                return GetCurrentLine();
+            }
+
+            var shouldHaveChosenAnOption = CurrentBeat!.Predicate.Bool(() => Declarations, Mutations)
+                ? CurrentBeat.Success.Options?.Any() ?? false
+                : CurrentBeat.Failure.Options?.Any() ?? false;
+
+            if (shouldHaveChosenAnOption && option is null)
+            {
+                Reset();
+                //Exit
+                return null;
+            }
+            else
+            {
+                if (option != null)
+                {
+                    if (string.IsNullOrWhiteSpace(option.Next)) return null; //if option doesnt have next, then break
+                    CurrentBeat = Model.Scenes[option.Next]?.Beats.First(); // else change beat to next
+                }
+                else
+                {
+                    CurrentBeat =
+                        CurrentBeat?.GetNext(() => Declarations, Mutations,
+                            Model.Scenes)!; //otherwise keep getting next line
+                }
+            }
+
+            //If you have something to say, say it
+            var somethingToSay = GetCurrentLine();
+            if (somethingToSay != null) return somethingToSay;
+            //otherwise reset and end the conversation
+            Reset();
+            return null;
+        }
         private async Task<Line?> GetCurrentLineAsync()
         {
             if (CurrentBeat is null)return null;
@@ -101,28 +141,28 @@ namespace Dialogative
             };
         }
         
-        //private Line? GetCurrentLine()
-        //{
-        //    if (CurrentBeat is null)return null;
-        //    var lineModel = CurrentBeat?.GetLine(() => Declarations, Mutations)!;
-        //    var q = new ConcurrentQueue<Option>();
-//
-        //    foreach (var x in lineModel.Options)
-        //    {
-        //        var predicate = x?.Predicate ?? string.Empty;
-        //        var shouldShowOption = predicate.Bool(() => Declarations, Mutations); 
-        //        if (x != null && (shouldShowOption || string.IsNullOrWhiteSpace(predicate) ) )
-        //            q.Enqueue(x);
-        //    }
-        //    _onEventTrigger(lineModel.Trigger);
-        //    return new Line
-        //    {
-        //        Text = lineModel.Text.Choice(_randomBarkChooser),
-        //        Mood = lineModel.Mood,
-        //        Sound = lineModel.Sound,
-        //        Options = q.ToArray()
-        //    };
-        //}
+        private Line? GetCurrentLine()
+        {
+            if (CurrentBeat is null)return null;
+            var lineModel = CurrentBeat?.GetLine(() => Declarations, Mutations)!;
+            var q = new ConcurrentQueue<Option>();
+
+            foreach (var x in lineModel.Options)
+            {
+                var predicate = x?.Predicate ?? string.Empty;
+                var shouldShowOption = predicate.Bool(() => Declarations, Mutations); 
+                if (x != null && (shouldShowOption || string.IsNullOrWhiteSpace(predicate) ) )
+                    q.Enqueue(x);
+            }
+            _onEventTrigger(lineModel.Trigger);
+            return new Line
+            {
+                Text = lineModel.Text.Choice(_randomBarkChooser),
+                Mood = lineModel.Mood,
+                Sound = lineModel.Sound,
+                Options = q.ToArray()
+            };
+        }
 
         private void Reset()
         {

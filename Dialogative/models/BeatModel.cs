@@ -13,8 +13,8 @@ namespace Dialogative.Models
         internal async Task<LineModel> GetLineAsync(Func<ICollection<string>> delarations,Func<ICollection<string>> mutations) =>
             await Predicate.BoolAsync(delarations,mutations) ? Success : Failure;
         
-        //internal LineModel GetLine(Func<ICollection<string>> delarations,Func<ICollection<string>> mutations) =>
-        //    Predicate.Bool(delarations,mutations) ? Success : Failure;
+        internal LineModel GetLine(Func<ICollection<string>> delarations,Func<ICollection<string>> mutations) =>
+            Predicate.Bool(delarations,mutations) ? Success : Failure;
         
         internal async Task<BeatModel?> GetNextAsync(Func<ICollection<string>> delarations,Func<ICollection<string>> mutations, Dictionary<string, SceneModel> scenes)
         {
@@ -24,13 +24,13 @@ namespace Dialogative.Models
             return nextInLine == null ? GetNextInScene() : scenes[nextInLine].Beats.First();
         }
         
-        //internal BeatModel? GetNext(Func<ICollection<string>> delarations,Func<ICollection<string>> mutations, Dictionary<string, SceneModel> scenes)
-        //{
-        //    var nextInLine = (GetLine(delarations,mutations)).Next;
-        //    return nextInLine == "exit" ? null :
-        //        //If no next line, then get next in scene
-        //        scenes[nextInLine].Beats.First();
-        //}
+        internal BeatModel? GetNext(Func<ICollection<string>> delarations,Func<ICollection<string>> mutations, Dictionary<string, SceneModel> scenes)
+        {
+            var nextInLine = (GetLine(delarations,mutations)).Next;
+            return nextInLine == "exit" ? null :
+                //If no next line, then get next in scene
+                scenes[nextInLine].Beats.First();
+        }
         
         private BeatModel? GetNextInScene()
         {
