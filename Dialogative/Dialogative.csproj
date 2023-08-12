@@ -7,7 +7,7 @@
         <VersionPrefix>1.1.0</VersionPrefix>
 
         <PackageId>Dialogative</PackageId>
-        <PackageIcon>../icon.png</PackageIcon>
+        <PackageIcon>icon.png</PackageIcon>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <PackageProjectUrl>https://github.com/ydinkov/Dialogative</PackageProjectUrl>
         <RepositoryUrl>https://github.com/ydinkov/Dialogative</RepositoryUrl>
@@ -30,9 +30,7 @@
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.6.0" />
         <PackageReference Include="YamlDotNet" Version="13.1.1" />
         <None Include="..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
-        <None Update="icon.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
+        <None Include="icon.png" Pack="true" PackagePath="$(PackageIcon)"/>
     </ItemGroup>
 
 </Project>
