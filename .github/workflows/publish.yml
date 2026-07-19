@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   packages: write
+  id-token: write
 
 jobs:
   build:
@@ -36,7 +37,14 @@ jobs:
       if: github.event_name == 'push'
       run: dotnet nuget push ./artifacts/Dialogative.*.nupkg --source "https://nuget.pkg.github.com/ydinkov/index.json" --api-key ${{ secrets.GH_PACKAGES_TOKEN }} --skip-duplicate
 
+    - name: NuGet login (Trusted Publishing)
+      if: github.event_name == 'push'
+      id: nuget_login
+      uses: NuGet/login@v1
+      with:
+        user: ${{ secrets.NUGET_USER }}
+
 
     - name: Push to Nuget
       if: github.event_name == 'push'
-      run: dotnet nuget push ./artifacts/Dialogative.*.nupkg -s https://www.nuget.org/ -k ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+      run: dotnet nuget push ./artifacts/Dialogative.*.nupkg -s https://api.nuget.org/v3/index.json -k ${{ steps.nuget_login.outputs.NUGET_API_KEY }} --skip-duplicate
