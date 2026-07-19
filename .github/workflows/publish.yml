@@ -32,10 +32,14 @@ jobs:
     - name: Pack with dotnet
       run: dotnet pack Dialogative/Dialogative.csproj --configuration Release --no-build -o ./artifacts
 
-
-    - name: Push to Github Packages
-      if: github.event_name == 'push'
-      run: dotnet nuget push ./artifacts/Dialogative.*.nupkg --source "https://nuget.pkg.github.com/ydinkov/index.json" --api-key ${{ secrets.GH_PACKAGES_TOKEN }} --skip-duplicate
+    - name: Add GitHub Packages source
+      run: >
+        dotnet nuget add source
+        --username "${{ github.actor }}"
+        --password "${{ secrets.GITHUB_TOKEN }}"
+        --store-password-in-clear-text
+        --name github
+        "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
 
     - name: NuGet login (Trusted Publishing)
       if: github.event_name == 'push'
