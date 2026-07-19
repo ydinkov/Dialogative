@@ -4,10 +4,11 @@
         <Title>Dialogative</Title>
         <Description>Yaml-driven dialogue tree library for video games, powered by PowerFX expressions</Description>
         <Summary>Create and run dialogue trees in dotnet with yaml and PowerFX conditions!</Summary>
-        <VersionPrefix>2.0.0</VersionPrefix>
+        <VersionPrefix>2.0.1</VersionPrefix>
 
         <PackageId>Dialogative</PackageId>
         <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
         <PackageProjectUrl>https://github.com/ydinkov/Dialogative</PackageProjectUrl>
         <RepositoryUrl>https://github.com/ydinkov/Dialogative</RepositoryUrl>
@@ -25,6 +26,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.PowerFx.Interpreter" Version="1.8.1" />
         <PackageReference Include="YamlDotNet" Version="18.1.0" />
+        <None Include="..\README.md" Pack="true" PackagePath="\" />
         <None Include="..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
         <None Include="icon.png" Pack="true" PackagePath="$(PackageIcon)"/>
     </ItemGroup>
