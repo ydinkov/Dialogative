@@ -1,0 +1,265 @@
+title: Opening Scene - First Notification
+
+scenes:
+  default:
+    - line: ["Voss."]
+      speaker: "Mara"
+      sound: "PhoneRing"
+      event: "SetBackground_MarasApartmentNight"
+
+    - line: ["You sound awake."]
+      speaker: "Ward"
+
+    - line: ["I sound employed. There's a difference."]
+      speaker: "Mara"
+
+    - line: ["Then let me ruin both. We have a body at Saint Orison Conservatory."]
+      speaker: "Ward"
+
+    - line: ["At this hour?"]
+      speaker: "Mara"
+
+    - line: ["There was a donor gala. Half the city's respectable people were drinking under chandeliers and congratulating one another for caring about children."]
+      speaker: "Ward"
+
+    - line: ["That usually ends badly."]
+      speaker: "Mara"
+
+    - line: ["Tonight it ended with Dr. Alistair Wren dead in a practice room."]
+      speaker: "Ward"
+
+    - line: ["Former director. Youth-arts foundation. Photographed beside every mayor since I joined the department."]
+      speaker: "Mara"
+
+    - line: ["The same. Very connected, very beloved, and apparently very dead."]
+      speaker: "Ward"
+
+    - line: ["Cause?"]
+      speaker: "Mara"
+
+    - line: ["Not confirmed. No obvious weapon, no obvious forced entry. Security found him alone in a locked room."]
+      speaker: "Ward"
+
+    - line: ["Locked rooms are usually just rooms with witnesses who lie badly."]
+      speaker: "Mara"
+
+    - line: ["That's why I called you instead of someone more cheerful."]
+      speaker: "Ward"
+
+    - line: ["Who found him?"]
+      speaker: "Mara"
+
+    - line: ["A conservatory student. She heard a metronome running after the building was supposed to be empty. Security opened the door and found Wren on the floor."]
+      speaker: "Ward"
+
+    - line: ["Who went inside?"]
+      speaker: "Mara"
+
+    - line: ["Security says no one touched anything."]
+      speaker: "Ward"
+
+    - line: ["So three people touched everything and one of them moved the chair."]
+      speaker: "Mara"
+
+    - line: ["Probably."]
+      speaker: "Ward"
+
+    - line: ["And the cameras?"]
+      speaker: "Mara"
+
+    - line: ["Partially disabled during the gala. The conservatory calls it a technical fault."]
+      speaker: "Ward"
+
+    - line: ["Of course they do. Technical fault is what wealthy institutions call evidence before a lawyer arrives."]
+      speaker: "Mara"
+
+    - line: ["The lawyers are already there."]
+      speaker: "Ward"
+
+    - line: ["Then we're late."]
+      speaker: "Mara"
+
+    - line: ["There's something else you should know before you walk in."]
+      speaker: "Ward"
+
+    - line: ["That sentence has never improved a night."]
+      speaker: "Mara"
+
+    - line: ["Wren appears in an old complaint file. A former student accused one of his teachers of abuse. She said Wren pressured her family to withdraw the complaint."]
+      speaker: "Ward"
+
+    - line: ["Was he charged?"]
+      speaker: "Mara"
+
+    - line: ["No."]
+      speaker: "Ward"
+
+    - line: ["Investigated?"]
+      speaker: "Mara"
+
+    - line: ["Barely."]
+      speaker: "Ward"
+
+    - line: ["Believed?"]
+      speaker: "Mara"
+
+    - line: ["Not officially."]
+      speaker: "Ward"
+
+    - line: ["That wasn't my question."]
+      speaker: "Mara"
+
+    - line: ["Her first statement was detailed. Her family withdrew cooperation after Wren's foundation offered her younger brother a scholarship."]
+      speaker: "Ward"
+
+    - line: ["And the department called that coincidence."]
+      speaker: "Mara"
+
+    - line: ["The case was marked non-actionable."]
+      speaker: "Ward"
+
+    - line: ["By whom?"]
+      speaker: "Mara"
+
+    - line: ["That part of the record is missing."]
+      speaker: "Ward"
+
+    - line: ["Files don't become incomplete by accident."]
+      speaker: "Mara"
+
+    - line: ["No. They become incomplete because someone important needs them to."]
+      speaker: "Ward"
+      options:
+        - text: "A dead man is still a victim."
+          event: "OpeningChoiceIntegrity"
+          goto: choice_integrity
+
+        - text: "It sounds like someone finally blamed him."
+          event: "OpeningChoiceComplicity"
+          goto: choice_blame
+
+        - text: "Who is already trying to bury this?"
+          event: "OpeningChoiceSuspicion"
+          goto: choice_burial
+
+  choice_integrity:
+    - line: ["Whatever Wren did, someone killed him. The dead don't lose their rights because the living hate them."]
+      speaker: "Mara"
+
+    - line: ["Good. Hold on to that when everyone else starts arguing about whether he deserved it."]
+      speaker: "Ward"
+      goto: after_choice
+
+  choice_blame:
+    - line: ["It sounds like someone finally decided the complaint mattered."]
+      speaker: "Mara"
+
+    - line: ["Maybe. But deciding someone is guilty and deciding they should die are not the same act."]
+      speaker: "Ward"
+
+    - line: ["No. One leaves paperwork."]
+      speaker: "Mara"
+      goto: after_choice
+
+  choice_burial:
+    - line: ["Who is already trying to bury this?"]
+      speaker: "Mara"
+
+    - line: ["The mayor's office wants the scene described as an isolated incident. The conservatory wants us gone before sunrise. Someone upstairs suggested burglary."]
+      speaker: "Ward"
+
+    - line: ["Was anything stolen?"]
+      speaker: "Mara"
+
+    - line: ["Not yet."]
+      speaker: "Ward"
+
+    - line: ["Then they're not investigating a crime. They're shopping for a conclusion."]
+      speaker: "Mara"
+      goto: after_choice
+
+  after_choice:
+    - line: ["Who's holding the scene?"]
+      speaker: "Mara"
+
+    - line: ["Gabriel Shaw."]
+      speaker: "Ward"
+
+    - line: ["Professional Standards' Gabriel Shaw?"]
+      speaker: "Mara"
+
+    - line: ["Temporarily attached to Major Crimes."]
+      speaker: "Ward"
+
+    - line: ["That sounds less like an assignment and more like a threat."]
+      speaker: "Mara"
+
+    - line: ["He's already reconstructed part of the timeline."]
+      speaker: "Ward"
+
+    - line: ["Of course he has."]
+      speaker: "Mara"
+
+    - line: ["You haven't even met him."]
+      speaker: "Ward"
+
+    - line: ["I've read his reports. He writes like the truth personally apologized for taking so long."]
+      speaker: "Mara"
+
+    - line: ["Try not to start a war in the first ten minutes."]
+      speaker: "Ward"
+
+    - line: ["I never start them."]
+      speaker: "Mara"
+
+    - line: ["No. You just ask the question everyone agreed not to ask."]
+      speaker: "Ward"
+
+    - line: ["Someone should."]
+      speaker: "Mara"
+
+    - line: ["Get here quickly, Mara."]
+      speaker: "Ward"
+
+    - line: ["Why?"]
+      speaker: "Mara"
+
+    - line: ["Because the room was locked, the cameras went dark, and everyone at the gala has already remembered a different version of the night."]
+      speaker: "Ward"
+
+    - line: ["That's not unusual."]
+      speaker: "Mara"
+
+    - line: ["The metronome is still running."]
+      speaker: "Ward"
+      sound: "Metronome"
+
+    - line: ["So turn it off."]
+      speaker: "Mara"
+
+    - line: ["We did."]
+      speaker: "Ward"
+
+    - line: ["It started again."]
+      speaker: "Ward"
+      mood: "Concerned"
+
+    - line: ["..."]
+      speaker: "Mara"
+      sound: "CallEnd"
+
+    - line: ["By morning, Alistair Wren would be remembered as a patron, a predator, or a martyr."]
+      speaker: "Mara"
+
+    - line: ["The dead rarely get one story."]
+      speaker: "Mara"
+
+    - line: ["The living usually get too many."]
+      speaker: "Mara"
+
+    - line: ["A PERFECT ALIBI"]
+      event: "ShowTitleCard_APerfectAlibi"
+
+    - line: ["DAY 1 - THE PATRON IN THE PRACTICE ROOM"]
+      event: "SetBackground_ConservatoryCrimeScene"
+      goto: exit

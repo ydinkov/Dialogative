@@ -1,91 +1,82 @@
-﻿// See https://aka.ms/new-console-template for more information
-
 using Dialogative;
-using Dialogative.Models;
 
-//SETUP
-//Some facts about the game, related to variables declared int he dialogue
-var facts = new List<string>
-    { "HasMetRuby=true", "FoundTheLute=true" }; //make sure these variables are assigned a value!
+// ── Load from file ──────────────────────────────────────────────────────────
+var handler = new DialogueBuilder()
+    .FromFile("v2example.yml")
+    .BuildHandler();
 
-// Something that can capture events coming from the dialogue
-var eventQueue = new Queue<string>();
+Console.WriteLine($"Loaded: {handler.Title}");
+Console.WriteLine("Press any key to advance. When options appear, press 1/2/3 to choose.");
+Console.WriteLine(new string('─', 60));
 
-// Load the file string
-var yamlText = await File.ReadAllTextAsync("ruby_rick.yaml");
+// ── Game state (would normally come from your game engine) ──────────────────
+var gameState = new Dictionary<string, object>();
 
-//INIT
-// Create the dialogue tree, this one is for an npc, called rick
-var rick = new DialogueTree
-(
-    yamlText, // From you yaml string
-    () => facts, // Pass it a Func<ICollection<string>> that can read the state of the game
-    eventQueue.Enqueue // Pass it an Action<string> that can listen to events from the dialogue
-);
+// ── Event listeners (optional — the result also contains all of this info) ──
+handler.SubjectChanged      += speaker => Console.ForegroundColor = ConsoleColor.Cyan;
+handler.MoodChanged         += mood    => Console.Title = $"Mood: {mood}";
+handler.SoundTriggered      += sfx     => Console.WriteLine($"  ♪ SFX: {sfx}");
+handler.MusicChanged        += music   => Console.WriteLine($"  ♫ Music: {music}");
+handler.EventTriggered      += evt     => Console.WriteLine($"  ► Event: {evt}");
+handler.StateUpdateRequested += (k, v) => gameState[k] = v!;
 
+// ── Main loop ───────────────────────────────────────────────────────────────
+DialogueResult result = handler.Continue(gameState);
 
-//TALKING
-Console.WriteLine($"Loaded: {rick?.Name}"); // Check if we loaded correctly
-ConsoleKey key = ConsoleKey.F; // Press F for bugs
-Option[]? options = null; // Hold the player's current options
-
-
-do
+while (!result.IsFinished)
 {
-    key = Console.ReadKey().Key;
-    //If there are options for the player, handle their choice
-    var choice = options is null ? null : HandlePlayerChoice(options, key);
+    Console.ResetColor();
 
-    //TalkAsync is the main way to interract with the dialogue tree
-    //Each call to TalkAsync will advance the dialogue tree one beat
-    //Each beat will return a line that can be interpreted by the game
-    //You can pass it options, if these are available 
-    var line = await rick.TalkAsync(choice);
-    if (line is null) break;
-    
-    
-    //Each line will hold one bark in its Text property that can be interpreted by the game
-    Console.WriteLine(line.Text);
-
-    //Here we print out some options if there are any
-    if (line?.Options?.Any() ?? false)
+    if (result.HasError)
     {
-        options = line.Options;
-        var i = 1;
-        foreach (var option in line.Options)
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"[Error] {result.Error}");
+        Console.ResetColor();
+        break;
+    }
+
+    // Print the line
+    var prefix = result.Speaker is not null ? $"{result.Speaker}: " : string.Empty;
+    Console.WriteLine($"{prefix}{result.Text}");
+
+    if (result.StateChange is not null)
+        Console.WriteLine($"  [state] {result.StateChange.Key} = {result.StateChange.Value}");
+
+    // Present options if any
+    if (result.HasOptions)
+    {
+        Console.WriteLine();
+        for (var i = 0; i < result.Options.Count; i++)
         {
-            Console.WriteLine($"\t[{i}]\t-\t{option.Text}");
-            i++;
+            var opt    = result.Options[i];
+            var locked = opt.IsLocked ? " [locked]" : string.Empty;
+            Console.WriteLine($"  [{i + 1}] {opt.Text}{locked}");
+        }
+        Console.WriteLine();
+        Console.Write("Your choice: ");
+
+        while (true)
+        {
+            Console.ReadKey(intercept: true);
+            var key = Console.ReadKey(intercept: true);
+            if (int.TryParse(key.KeyChar.ToString(), out var idx)
+                && idx >= 1 && idx <= result.Options.Count)
+            {
+                var chosen = result.Options[idx - 1];
+                Console.WriteLine(chosen.Text);
+                result = handler.ChooseOption(chosen.Text, gameState);
+                break;
+            }
         }
     }
     else
     {
-        options = null;
+        Console.ReadKey(intercept: true);
+        result = handler.Continue(gameState);
     }
-     
-    
-} while (key != ConsoleKey.Escape); // Escape can exit the loop
-
-Console.WriteLine("Done");
-
-Option? HandlePlayerChoice(Option[] options1, ConsoleKey consoleKey)
-{
-    Option choice = null;
-    try
-    {
-        choice = consoleKey switch
-        {
-            ConsoleKey.D1 => options1[0],
-            ConsoleKey.D2 => options1[1],
-            ConsoleKey.D3 => options1[2],
-            ConsoleKey.D4 => options1[3],
-            _ => options1.First()
-        };
-    }
-    catch
-    {
-        choice = options1.First();
-    }
-
-    return choice;
 }
+
+Console.ResetColor();
+Console.WriteLine();
+Console.WriteLine(new string('─', 60));
+Console.WriteLine("[ Dialogue finished ]");
